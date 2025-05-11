@@ -1,6 +1,3 @@
-import json
-from typing import List
-
 import pydantic
 import uvicorn
 from fastapi import Depends, FastAPI, Request
