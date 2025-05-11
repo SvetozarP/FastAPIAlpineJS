@@ -12,10 +12,36 @@
 </head>
 <body>
 
-<div class="mx-4">
+<div class="mx-4" x-data="{ results: {{ employees }}, chosenDepartment: 'ALL' }">
     <h1 class="text-2xl font-bold mb-4">Employees</h1>
 
+    <select x-model="chosenDepartment">
+        <option name="dept" value="ALL">ALL</option>
+        {% for department in departments %}
+            <option name="dept" value="{{ department }}">{{ department }}</option>
+        {% endfor %}
+    </select>
 
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 text-left uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-600">
+        <tr>
+            <th scope="col" class="px-6 py-3">First name</th>
+            <th scope="col" class="px-6 py-3">Last name</th>
+            <th scope="col" class="px-6 py-3">Department</th>
+            <th scope="col" class="px-6 py-3">Job Title</th>
+        </tr>
+        </thead>
+        <tbody>
+            <template  x-for="result in results.filter(r => chosenDepartment == 'ALL' || r.department.name == chosenDepartment)">
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td x-text="result.employee.first_name"></td>
+                    <td x-text="result.employee.surname"></td>
+                    <td x-text="result.department.name"></td>
+                    <td x-text="result.employee.job_title"></td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
 </div>
 
 </body>
